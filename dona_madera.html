@@ -75,13 +75,18 @@
                     <form>
                         <h1>Ingresa tus datos de contacto:</h1>
                         <label for="nombre">Nombre:</label><br>
-                        <input type="text" id="nombre" name="nombre"><br>
+                        <input type="text" id="nombre" name="nombre" required><br>
                         
                         <label for="apellido">Apellidos:</label><br>
-                        <input type="text" id="apellido" name="apellido"><br>
+                        <input type="text" id="apellido" name="apellido" required><br>
 
-                        <label for="numero_contacto">Número de contacto</label><br>
-                        <input type="tel" id="numero_contacto" name="numero_contacto"><br>
+                        <label for="numero_contacto">Número de contacto:</label><br>
+                        <input type="tel" id="numero_contacto" name="numero_contacto" required><br>
+
+                        <label for="mensaje">Mensaje:</label><br>
+                        <input type="text" id="mensaje" name="mensaje" required><br><br>
+
+                        <button type="submit" >Enviar</button>
                     </form>
                 </div>
                 <a href="index.html" class="btn btn-primary">Volver a la tienda</a>                 
@@ -92,11 +97,19 @@
 
     </div>
 
+        <section>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button id="botonIrArriba" class="btn btn-primary me-md-2" type="button">
+                    <img src="./assets/img/arrow39.png">
+                </button>
+            </div>
+        </section>
+
 <footer>
     <div class="container-fluid bg-crema">
          <p id="footer"> &copy; 2025. Todos los derechos reservados.</p>        
     </div>     
 </footer>
-        <script src="./assets/js/script.js"></script>
+        <script src="./assets/js/scrip.js"></script>
 </body>
 </html>
