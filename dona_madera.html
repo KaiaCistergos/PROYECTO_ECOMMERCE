@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> ALFE Woods Design </title>
+    <!-- Nombre del proyecto -->
+    <meta name="description" content="Proyecto M2">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Claudia Cisternas">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="bg-verde">
+        <header>
+            <nav class="mi-navbar navbar-expand-sm fixed-top">
+                <img src="./assets/img/ALFE_FORMULA_6060.png" class="navbar-brand has-logo">
+
+                <div class="container-fluid float-star">
+
+                    <a class="navbar-brand" href="#"></a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"              
+                        aria-controls="navbarNav"    aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" target="_blank">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" target="_blank">Sobre nosotros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" target="_blank">Catalogo</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./dona_madera.html"> Dona madera </a>
+                            </li>
+                        </ul>
+                    </div>                    
+                </div>
+
+                <div class="container-fluid" id="search">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Nombre del producto" aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>
+                </div>
+
+                <div class="container-fluid d-flex justify-content-center align-items-center gap-3">
+                    <a href="carrito.html">Carrito (<span id="cart-count">0</span>)</a>
+                    <button id="vaciarNav" class="btn btn-warning">Vaciar</button>
+
+                </div>
+
+            </nav>
+        </header>
+        
+        <section>
+            <div class="container my-5 p-5 bg-crema" id="container_form">
+                <div class="container" id="form">
+                    <form>
+                        <h1>Ingresa tus datos de contacto:</h1>
+                        <label for="nombre">Nombre:</label><br>
+                        <input type="text" id="nombre" name="nombre"><br>
+                        
+                        <label for="apellido">Apellidos:</label><br>
+                        <input type="text" id="apellido" name="apellido"><br>
+
+                        <label for="numero_contacto">Número de contacto</label><br>
+                        <input type="tel" id="numero_contacto" name="numero_contacto"><br>
+                    </form>
+                </div>
+                <a href="index.html" class="btn btn-primary">Volver a la tienda</a>                 
+            </div>
+        </section>
+        
+        <div class="container-fluid d-flex"></div>
+
+    </div>
+
+<footer>
+    <div class="container-fluid bg-crema">
+         <p id="footer"> &copy; 2025. Todos los derechos reservados.</p>        
+    </div>     
+</footer>
+        <script src="./assets/js/script.js"></script>
+</body>
+</html>

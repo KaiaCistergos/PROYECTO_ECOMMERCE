@@ -1,0 +1,59 @@
+.bg-verde {
+    background-color: rgb(38, 117, 38);
+}
+
+.bg-crema {
+        background-color: rgb(244, 244, 210);
+}
+
+.mi-navbar {
+    text-indent: 30px;
+    background-color: beige;
+    height: 60px; 
+    display: flex; 
+    align-items: center;
+}
+
+#vaciarNav {
+    width: 80px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+body {
+    padding-top: 100px;
+    background-color: rgb(38, 117, 38);
+}
+
+#container_form {
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#form {
+    display:grid;
+    place-items: center;
+}
+
+.c-item {
+    height: 160px}
+
+.c-img {
+    height: 100%;
+    object-fit: cover;
+}
+
+#botonIrArriba {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+}
+
+#footer {
+    margin-bottom: 0px;
+}
