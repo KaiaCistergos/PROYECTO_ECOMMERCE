@@ -57,3 +57,8 @@ body {
 #footer {
     margin-bottom: 0px;
 }
+
+#imagenProducto1 {
+    height: 400px;
+    margin: 50px;
+}
