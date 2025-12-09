@@ -1,8 +1,8 @@
 // -------------------------
-// FUNCIONES PRINCIPALES
+// ESTRUCTURA DE DATOS
 // -------------------------
 
-// Productos
+// Base de datos de productos
 const productos = [
     {id: 1, nombre: "Mesa de centro", precio: 19990},
     {id: 2, nombre: "Mesa de comedor", precio: 29990},
@@ -13,18 +13,29 @@ const productos = [
 // Recuperar carrito de localStorage o iniciar vacío
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Actualizar contador al cargar la página
-actualizarContador();
+//-------------------------
+// FUNCIONES DE AYUDA
+//-------------------------
 
-// Botón para ir arriba
-const botonIrArriba = document.getElementById("botonIrArriba");
+// Buscar producto en base de datos por id
+const obtenerProducto = (id) => productos.find(p => p.id === id);
 
-botonIrArriba.addEventListener("click", function () {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+// Guardar en localStorage
+function guardarCarrito() {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+};
 
-});
+// Actualizar contador del nav
+function actualizarContador() {
+    const contador = document.getElementById("cart-count");
+    // Suma la cantidad total de items 
+    const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+        if (contador) {
+        contador.textContent = totalItems;
+    };
+};
 
-// Agregar producto al carrito
+
 function agregarAlCarrito(nombreProducto) {
     carrito.push(nombreProducto);
     guardarCarrito();
@@ -51,20 +62,16 @@ document.getElementById("vaciarNav").addEventListener("click", () => {
     alert("Carrito vaciado");
 });
 
+// Actualizar contador al cargar la página
+actualizarContador();
 
-// Guardar en localStorage
-function guardarCarrito() {
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-};
+// Botón para ir arriba
+const botonIrArriba = document.getElementById("botonIrArriba");
 
-// Actualizar contador del nav
-function actualizarContador() {
-    const contador = document.getElementById("cart-count");
-    if (contador) {
-        contador.textContent = carrito.length;
-    };
-};
+botonIrArriba.addEventListener("click", function () {
+    window.scrollTo({top: 0, behavior: 'smooth'});
 
+});
 // -------------------------
 // ASIGNAR EVENTOS A BOTONES (data-nombre)
 // -------------------------
