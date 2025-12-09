@@ -1,12 +1,20 @@
+// -------------------------
+// FUNCIONES PRINCIPALES
+// -------------------------
+
+// Productos
+const productos = [
+    {id: 1, nombre: "Mesa de centro", precio: 19990},
+    {id: 2, nombre: "Mesa de comedor", precio: 29990},
+    {id: 3, nombre: "Silla básica", precio: 9990},
+    {id: 4, nombre: "Banqueta", precio: 14990},
+];
+
 // Recuperar carrito de localStorage o iniciar vacío
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 // Actualizar contador al cargar la página
 actualizarContador();
-
-// -------------------------
-// FUNCIONES PRINCIPALES
-// -------------------------
 
 // Botón para ir arriba
 const botonIrArriba = document.getElementById("botonIrArriba");
