@@ -35,12 +35,28 @@ function actualizarContador() {
     };
 };
 
+//-------------------------
+// Agregar al carrito (id, cantidad)
+//-------------------------
 
-function agregarAlCarrito(nombreProducto) {
-    carrito.push(nombreProducto);
+function agregarAlCarrito(id, cantidad = 1) {
+    const productoBase = obtenerProducto(id);
+    if (!productoBase) {
+        console.error('Error: Producto con ID &{id} no encontrado.');
+        alert("Producto no encontrado.");
+        return;
+    };
+    const itemEnCarrito = carrito.find(item => item.id === id);
+    if (itemEnCarrito) {
+        itemEnCarrito.cantidad += cantidad;
+        alert('Se agregó ${cantidad} unidad(es) de ${productoBase.nombre}. Cantidad actual: ${itemEnCarrito.cantidad}');
+    } else {
+        carrito.push({id, cantidad});
+        alert('Se agregó ${productoBase.nombre} al carrito.')
+    };
+    
     guardarCarrito();
     actualizarContador();
-    alert(`Se agregó: ${nombreProducto}`);
 };
 
 // Eliminar producto desde la página principal
