@@ -41,6 +41,7 @@ function actualizarContador() {
 
 function agregarAlCarrito(id, cantidad = 1) {
     const productoBase = obtenerProducto(id);
+
     if (!productoBase) {
         console.error('Error: Producto con ID &{id} no encontrado.');
         alert("Producto no encontrado.");
@@ -59,14 +60,21 @@ function agregarAlCarrito(id, cantidad = 1) {
     actualizarContador();
 };
 
-// Eliminar producto desde la página principal
-function eliminarDelCarrito(nombreProducto) {
-    const index = carrito.indexOf(nombreProducto);
+//-------------------------
+// Remover del carrito (id)
+//-------------------------
+
+function removerDelCarrito(id) {
+    const index = carrito.findIndex(intem => item.id === id);
+
     if (index !== -1) {
         carrito.splice(index, 1);
+        alert(`Producto eliminado: ${nombreProducto}`);
+
         guardarCarrito();
         actualizarContador();
-        alert(`Producto eliminado: ${nombreProducto}`);
+    } else {
+        console.warn('Advertencia: Producto con ID ${id} no estaba en el carrito.')
     };
 };
 
