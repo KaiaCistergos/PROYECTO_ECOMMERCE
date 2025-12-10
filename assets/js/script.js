@@ -134,7 +134,39 @@ function aplicarDescuento(codigo) {
     };
 };
 
-// Vaciar carrito
+// -------------------------
+// ASIGNAR EVENTOS A BOTONES
+// -------------------------
+
+// Lógica para botón agregar
+document.querySelectorAll(".btn-agregar").forEach(boton => {
+    boton.addEventListener("click", () => {
+        const nombre = boton.dataset.nombre;
+        
+        const producto = productos.find(p => p.nombre === nombre);
+        if (producto) {
+            agregarAlCarrito(producto.id, 1);
+        } else {
+            alert(`Error interno: Producto '${nombre}' no encontrado en la base de datos.`)
+        }
+    });
+});
+
+// Lógica para botón de remover
+document.querySelectorAll(".btn-eliminar").forEach(boton => {
+    boton.addEventListener("click", () => {
+        const nombre = boton.dataset.nombre;
+
+        const producto = productos.find(p => p.nombre === nombre);
+        if (producto) {
+            removerDelCarrito(producto.id);
+        } else {
+            alert(`Error interno: Producto '${nombre}'no encontrado en la base de datos.`)
+        }
+    });
+});
+
+// Lógica para botón de vaciar carrito
 document.getElementById("vaciarNav").addEventListener("click", () => {
     carrito = [];
     guardarCarrito();
@@ -147,25 +179,6 @@ actualizarContador();
 
 // Botón para ir arriba
 const botonIrArriba = document.getElementById("botonIrArriba");
-
 botonIrArriba.addEventListener("click", function () {
     window.scrollTo({top: 0, behavior: 'smooth'});
-
-});
-// -------------------------
-// ASIGNAR EVENTOS A BOTONES (data-nombre)
-// -------------------------
-
-document.querySelectorAll(".btn-agregar").forEach(boton => {
-    boton.addEventListener("click", () => {
-        const nombre = boton.dataset.nombre;
-        agregarAlCarrito(nombre);
-    });
-});
-
-document.querySelectorAll(".btn-eliminar").forEach(boton => {
-    boton.addEventListener("click", () => {
-        const nombre = boton.dataset.nombre;
-        eliminarDelCarrito(nombre);
-    });
 });
