@@ -43,17 +43,17 @@ function agregarAlCarrito(id, cantidad = 1) {
     const productoBase = obtenerProducto(id);
 
     if (!productoBase) {
-        console.error('Error: Producto con ID &{id} no encontrado.');
+        console.error(`Error: Producto con ID ${id} no encontrado.`);
         alert("Producto no encontrado.");
         return;
     };
     const itemEnCarrito = carrito.find(item => item.id === id);
     if (itemEnCarrito) {
         itemEnCarrito.cantidad += cantidad;
-        alert('Se agregó ${cantidad} unidad(es) de ${productoBase.nombre}. Cantidad actual: ${itemEnCarrito.cantidad}');
+        alert(`Se agregó ${cantidad} unidad(es) de ${productoBase.nombre}. Cantidad actual: ${itemEnCarrito.cantidad}`);
     } else {
         carrito.push({id, cantidad});
-        alert('Se agregó ${productoBase.nombre} al carrito.')
+        alert(`Se agregó ${productoBase.nombre} al carrito.`);
     };
     
     guardarCarrito();
@@ -69,12 +69,12 @@ function removerDelCarrito(id) {
 
     if (index !== -1) {
         carrito.splice(index, 1);
-        alert(`Producto eliminado: ${nombreProducto}`);
-
+        const producto = obtenerProducto(id);
+        alert(`Producto eliminado: ${producto.nombre}`);
         guardarCarrito();
         actualizarContador();
     } else {
-        console.warn('Advertencia: Producto con ID ${id} no estaba en el carrito.')
+        console.warn(`Advertencia: Producto con ID ${id} no estaba en el carrito.`);
     };
 };
 
@@ -106,9 +106,9 @@ function aplicarDescuento(codigo) {
         case "PROMO10":
             if (sub >= 30000) {
                 total = sub * 0.90;
-                detalleDescuento = "Descuento PROMO10 (10%) aplicado.";
+                detalleDescuento = `Descuento PROMO10 (10%) aplicado.`;
             } else {
-                detalleDescuento = "PROMO10 requiere un subtotal de $30.000. Actual: ${sub}.";
+                detalleDescuento = `PROMO10 requiere un subtotal de $30.000. Actual: ${sub}.`;
             }
             break;
         case "ENVIOGRATIS":
@@ -116,9 +116,9 @@ function aplicarDescuento(codigo) {
                 total = sub - 3990;
 
                 total = Math.max(0, total);
-                detalleDescuento = "Descuento ENVIOGRATIS (-$3.990) aplicado.";
+                detalleDescuento = `Descuento ENVIOGRATIS (-$3.990) aplicado.`;
             } else {
-                detalleDescuento = 'ENVIOGRATIS requiere un subtotal de $25.000. Actual: ${sub}.';
+                detalleDescuento = `ENVIOGRATIS requiere un subtotal de $25.000. Actual: ${sub}.`;
             }
             break;
         default:
@@ -182,3 +182,11 @@ const botonIrArriba = document.getElementById("botonIrArriba");
 botonIrArriba.addEventListener("click", function () {
     window.scrollTo({top: 0, behavior: 'smooth'});
 });
+
+// -------------------------
+// PRUEBA
+// -------------------------
+
+// agregarAlCarrito(1, 2);
+// agregarAlCarrito(3,1);
+// console.log(aplicarDescuento("PROMO10"));
