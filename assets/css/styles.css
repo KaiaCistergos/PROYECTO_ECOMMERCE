@@ -21,6 +21,32 @@
     align-items: center;
 }
 
+.wrapper {
+  max-width: 100%;
+  overflow: hidden;
+  background-color: rgb(244, 244, 210);
+}
+
+.marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  animation: scroll 40s linear infinite;
+}
+
+.marquee p {
+  display: inline-block;
+  margin-right: 400px;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
 
 body {
     padding-top: 100px;
