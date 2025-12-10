@@ -17,3 +17,8 @@ El proyecto consiste en la creación de Front-end de una tienda e-commerce.
 - Cuenta con tarjeta de productos con dos botones funcionales para agregar o eliminar dicho producto.
 - Los botones de agregar y eliminar, al ser clickeados, arroja una alerta si se añadió o eliminó un producto.
 - Cuenta con un breve footer.
+
+#### Actualización de contenido (10-12-2025)
+
+- Creación de lógica al carrito siendo ahora capaz de realizar sumas, restas y descuentos al seleccionar los productos. Además de hacer un resumen final del carrito.
+- Creación de marquee para mostrar los códigos de descuento vigentes.
