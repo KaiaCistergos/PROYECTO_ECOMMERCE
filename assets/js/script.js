@@ -103,9 +103,9 @@ function subtotal() {
     }, 0);
 };
 
-////-------------------------
+//-------------------------
 // Aplicar descuento
-////-------------------------
+//-------------------------
 
 function aplicarDescuento(codigo) {
     const sub = subtotal ();
@@ -143,6 +143,33 @@ function aplicarDescuento(codigo) {
         montoDescuento: sub - total
     };
 };
+
+//-------------------------
+// RESUMEN CÓDIGO
+//-------------------------
+
+function resumen(codigo = "") {
+    if (carrito.length === 0) {
+        return "El carrito está vacío."
+    };
+
+    const datos = aplicarDescuento(codigo);
+
+    let items = carrito.map(item => {
+        const producto= obtenerProducto(item.id);
+        return `- ${producto.nombre} x${item.cantidad} → $${producto.precio * item.cantidad}`;
+    }).join("\n");
+
+        return `
+    Resumen del carrito:
+    ${items}
+
+    Subtotal: $${datos.subtotal}
+    Descuento: ${datos.detalle}
+    Total final: $${datos.total}
+    `;
+}
+
 
 // -------------------------
 // ASIGNAR EVENTOS A BOTONES
