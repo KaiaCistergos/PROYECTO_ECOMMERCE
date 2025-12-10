@@ -58,6 +58,11 @@ function agregarAlCarrito(id, cantidad = 1) {
     
     guardarCarrito();
     actualizarContador();
+
+// Posibilidad de agregar productos y que se actualice la consola
+    console.log("Carrito actualizado:", carrito);
+    console.log("Subtotal:", subtotal());
+    console.log("Con descuento PROMO10:", aplicarDescuento("PROMO10"));
 };
 
 //-------------------------
@@ -76,6 +81,11 @@ function removerDelCarrito(id) {
     } else {
         console.warn(`Advertencia: Producto con ID ${id} no estaba en el carrito.`);
     };
+
+// Posibilidad de remover productos y que se actualice la consola
+    console.log("Carrito actualizado:", carrito);
+    console.log("Subtotal:", subtotal());
+    console.log("Con descuento PROMO10:", aplicarDescuento("PROMO10"));
 };
 
 //-------------------------
@@ -96,11 +106,11 @@ function subtotal() {
 ////-------------------------
 // Aplicar descuento
 ////-------------------------
+
 function aplicarDescuento(codigo) {
     const sub = subtotal ();
     let total = sub;
     let detalleDescuento = "Sin descuento aplicado.";
-    const descuentoAplicado = 0;
 
     switch (codigo.toUpperCase()) {
         case "PROMO10":
@@ -161,32 +171,42 @@ document.querySelectorAll(".btn-eliminar").forEach(boton => {
         if (producto) {
             removerDelCarrito(producto.id);
         } else {
-            alert(`Error interno: Producto '${nombre}'no encontrado en la base de datos.`)
+            alert(`Error interno: Producto '${nombre}' no encontrado en la base de datos.`)
         }
     });
 });
 
 // Lógica para botón de vaciar carrito
-document.getElementById("vaciarNav").addEventListener("click", () => {
-    carrito = [];
-    guardarCarrito();
-    actualizarContador();
-    alert("Carrito vaciado");
-});
+const btnVaciar = document.getElementById("vaciarNav");
+if (btnVaciar) {
+    btnVaciar.addEventListener("click", () => {
+        carrito = [];
+        guardarCarrito();
+        actualizarContador();
+        alert("Carrito vaciado");
+    });
+
+// Posibilidad de vaciar carrito y que se actualice la consola
+    console.log("Carrito actualizado:", carrito);
+    console.log("Subtotal:", subtotal());
+    console.log("Con descuento PROMO10:", aplicarDescuento("PROMO10"));
+};
 
 // Actualizar contador al cargar la página
 actualizarContador();
 
 // Botón para ir arriba
 const botonIrArriba = document.getElementById("botonIrArriba");
-botonIrArriba.addEventListener("click", function () {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-});
+if (botonIrArriba) {
+    botonIrArriba.addEventListener("click", function () {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+};
 
 // -------------------------
 // PRUEBA
 // -------------------------
 
-// agregarAlCarrito(1, 2);
-// agregarAlCarrito(3,1);
-// console.log(aplicarDescuento("PROMO10"));
+agregarAlCarrito(1, 2);
+agregarAlCarrito(3, 1);
+console.log(aplicarDescuento("PROMO10"));
