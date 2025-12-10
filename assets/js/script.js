@@ -93,6 +93,46 @@ function subtotal() {
     }, 0);
 };
 
+////-------------------------
+// Aplicar descuento
+////-------------------------
+function aplicarDescuento(codigo) {
+    const sub = subtotal ();
+    let total = sub;
+    let detalleDescuento = "Sin descuento aplicado.";
+    const descuentoAplicado = 0;
+
+    switch (codigo.toUpperCase()) {
+        case "PROMO10":
+            if (sub >= 30000) {
+                total = sub * 0.90;
+                detalleDescuento = "Descuento PROMO10 (10%) aplicado.";
+            } else {
+                detalleDescuento = "PROMO10 requiere un subtotal de $30.000. Actual: ${sub}.";
+            }
+            break;
+        case "ENVIOGRATIS":
+            if (sub >= 25000) {
+                total = sub - 3990;
+
+                total = Math.max(0, total);
+                detalleDescuento = "Descuento ENVIOGRATIS (-$3.990) aplicado.";
+            } else {
+                detalleDescuento = 'ENVIOGRATIS requiere un subtotal de $25.000. Actual: ${sub}.';
+            }
+            break;
+        default:
+            detalleDescuento = "Código inválido.";
+            break;
+    }
+
+    return {
+        subtotal: sub,
+        total: total,
+        detalle: detalleDescuento,
+        montoDescuento: sub - total
+    };
+};
 
 // Vaciar carrito
 document.getElementById("vaciarNav").addEventListener("click", () => {
