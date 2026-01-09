@@ -22,3 +22,8 @@ El proyecto consiste en la creación de Front-end de una tienda e-commerce.
 
 - Creación de lógica al carrito siendo ahora capaz de realizar sumas, restas y descuentos al seleccionar los productos. Además de hacer un resumen final del carrito.
 - Creación de marquee para mostrar los códigos de descuento vigentes.
+
+#### Actualización de contenido (09-01-2026)
+
+- Cargo los productos desde un archivo JSON usando fetch y async/await.
+- Mantengo el estado del carrito con localStorage y reutilizo la misma lógica para agregar, eliminar y vaciar productos.
