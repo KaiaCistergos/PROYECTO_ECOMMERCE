@@ -33,7 +33,7 @@ function actualizarContador() {
 
 const getProductos = async () => {
     try {
-        const res = await fetch("./assets/data/productos.json");
+        const res = await fetch("../data/productos.json");
         if (!res.ok) throw new Error("No se pudo cargar el JSON");
         productos = await res.json();
         console.log("Productos cargados:", productos);
@@ -93,7 +93,7 @@ function aplicarDescuento(codigo) {
 }
 
 // -------------------------
-// RESUMEN (LO QUE TE PIDEN)
+// RESUMEN
 // -------------------------
 
 function resumen(codigo) {
@@ -113,10 +113,13 @@ Total: $${d.total}
 }
 
 // -------------------------
-// EVENTOS (TUS BOTONES)
+// EVENTOS 
 // -------------------------
 
-// Botones AGREGAR
+// ------------------------
+// Botón AGREGAR
+// -------------------------
+
 document.querySelectorAll(".btn-agregar").forEach(btn => {
     btn.addEventListener("click", () => {
         const nombre = btn.dataset.nombre;
@@ -128,7 +131,10 @@ document.querySelectorAll(".btn-agregar").forEach(btn => {
     });
 });
 
-// Botones ELIMINAR
+// -------------------------
+// Botón ELIMINAR
+// -------------------------
+
 document.querySelectorAll(".btn-eliminar").forEach(btn => {
     btn.addEventListener("click", () => {
         const nombre = btn.dataset.nombre;
@@ -140,7 +146,10 @@ document.querySelectorAll(".btn-eliminar").forEach(btn => {
     });
 });
 
+// -------------------------
 // Botón VACIAR
+// -------------------------
+
 const btnVaciar = document.getElementById("vaciarNav");
 if (btnVaciar) {
     btnVaciar.addEventListener("click", () => {
