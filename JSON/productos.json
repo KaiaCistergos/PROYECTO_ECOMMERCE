@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nombre": "Mesa de centro", "precio": 19990 },
+  { "id": 2, "nombre": "Mesa de comedor", "precio": 29990 },
+  { "id": 3, "nombre": "Silla básica", "precio": 9990 },
+  { "id": 4, "nombre": "Banqueta", "precio": 14990 }
+]
