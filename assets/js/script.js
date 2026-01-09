@@ -2,238 +2,158 @@
 // ESTRUCTURA DE DATOS
 // -------------------------
 
-// Base de datos de productos
-const productos = [
-    {id: 1, nombre: "Mesa de centro", precio: 19990},
-    {id: 2, nombre: "Mesa de comedor", precio: 29990},
-    {id: 3, nombre: "Silla básica", precio: 9990},
-    {id: 4, nombre: "Banqueta", precio: 14990},
-];
-
-// Recuperar carrito de localStorage o iniciar vacío
+let productos = []; // ahora vienen desde JSON
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-//-------------------------
-// FUNCIONES DE AYUDA
-//-------------------------
+// -------------------------
+// ELEMENTOS DOM
+// -------------------------
 
-// Buscar producto en base de datos por id
+const cartCountEl = document.getElementById("cart-count");
+const buscar = document.getElementById("buscar");
+
+// -------------------------
+// FUNCIONES DE AYUDA
+// -------------------------
+
 const obtenerProducto = (id) => productos.find(p => p.id === id);
 
-// Guardar en localStorage
 function guardarCarrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
-};
-
-// Actualizar contador del nav
-function actualizarContador() {
-    const contador = document.getElementById("cart-count");
-    // Suma la cantidad total de items 
-    const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-        if (contador) {
-        contador.textContent = totalItems;
-    };
-};
-
-//-------------------------
-// Agregar al carrito (id, cantidad)
-//-------------------------
-
-function agregarAlCarrito(id, cantidad = 1) {
-    const productoBase = obtenerProducto(id);
-
-    if (!productoBase) {
-        console.error(`Error: Producto con ID ${id} no encontrado.`);
-        alert("Producto no encontrado.");
-        return;
-    };
-    const itemEnCarrito = carrito.find(item => item.id === id);
-    if (itemEnCarrito) {
-        itemEnCarrito.cantidad += cantidad;
-        alert(`Se agregó ${cantidad} unidad(es) de ${productoBase.nombre}. Cantidad actual: ${itemEnCarrito.cantidad}`);
-    } else {
-        carrito.push({id, cantidad});
-        alert(`Se agregó ${productoBase.nombre} al carrito.`);
-    };
-    
-    guardarCarrito();
-    actualizarContador();
-
-// Posibilidad de agregar productos y que se actualice la consola
-    console.log("Carrito actualizado:", carrito);
-    console.log("Subtotal:", subtotal());
-    console.log("Con descuento PROMO10:", aplicarDescuento("PROMO10"));
-};
-
-//-------------------------
-// Remover del carrito (id)
-//-------------------------
-
-function removerDelCarrito(id) {
-    const index = carrito.findIndex(item => item.id === id);
-
-    if (index !== -1) {
-        carrito.splice(index, 1);
-        const producto = obtenerProducto(id);
-        alert(`Producto eliminado: ${producto.nombre}`);
-        guardarCarrito();
-        actualizarContador();
-    } else {
-        console.warn(`Advertencia: Producto con ID ${id} no estaba en el carrito.`);
-    };
-
-// Posibilidad de remover productos y que se actualice la consola
-    console.log("Carrito actualizado:", carrito);
-    console.log("Subtotal:", subtotal());
-    console.log("Con descuento PROMO10:", aplicarDescuento("PROMO10"));
-};
-
-//-------------------------
-// Subtotal
-//-------------------------
-
-function subtotal() {
-    return carrito.reduce((sumatoria, item) => {
-        const productoBase = obtenerProducto(item.id);
-
-        if (productoBase) {
-            return sumatoria + (productoBase.precio * item.cantidad);
-        };
-        return sumatoria;
-    }, 0);
-};
-
-//-------------------------
-// Aplicar descuento
-//-------------------------
-
-function aplicarDescuento(codigo) {
-    const sub = subtotal ();
-    let total = sub;
-    let detalleDescuento = "Sin descuento aplicado.";
-
-    switch (codigo.toUpperCase()) {
-        case "PROMO10":
-            if (sub >= 30000) {
-                total = sub * 0.90;
-                detalleDescuento = `Descuento PROMO10 (10%) aplicado.`;
-            } else {
-                detalleDescuento = `PROMO10 requiere un subtotal de $30.000. Actual: ${sub}.`;
-            }
-            break;
-        case "ENVIOGRATIS":
-            if (sub >= 25000) {
-                total = sub - 3990;
-
-                total = Math.max(0, total);
-                detalleDescuento = `Descuento ENVIOGRATIS (-$3.990) aplicado.`;
-            } else {
-                detalleDescuento = `ENVIOGRATIS requiere un subtotal de $25.000. Actual: ${sub}.`;
-            }
-            break;
-        default:
-            detalleDescuento = "Código inválido.";
-            break;
-    }
-
-    return {
-        subtotal: sub,
-        total: total,
-        detalle: detalleDescuento,
-        montoDescuento: sub - total
-    };
-};
-
-//-------------------------
-// RESUMEN CÓDIGO
-//-------------------------
-
-function resumen(codigo = "") {
-    if (carrito.length === 0) {
-        return "El carrito está vacío."
-    };
-
-    const datos = aplicarDescuento(codigo);
-
-    let items = carrito.map(item => {
-        const producto= obtenerProducto(item.id);
-        return `- ${producto.nombre} x${item.cantidad} → $${producto.precio * item.cantidad}`;
-    }).join("\n");
-
-        return `
-    Resumen del carrito:
-    ${items}
-
-    Subtotal: $${datos.subtotal}
-    Descuento: ${datos.detalle}
-    Total final: $${datos.total}
-    `;
 }
 
+function actualizarContador() {
+    const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    if (cartCountEl) cartCountEl.textContent = total;
+}
 
 // -------------------------
-// ASIGNAR EVENTOS A BOTONES
+// FETCH JSON LOCAL
 // -------------------------
 
-// Lógica para botón agregar
-document.querySelectorAll(".btn-agregar").forEach(boton => {
-    boton.addEventListener("click", () => {
-        const nombre = boton.dataset.nombre;
-        
+const getProductos = async () => {
+    try {
+        const res = await fetch("./assets/data/productos.json");
+        if (!res.ok) throw new Error("No se pudo cargar el JSON");
+        productos = await res.json();
+        console.log("Productos cargados:", productos);
+    } catch (error) {
+        console.error(error.message);
+    }
+};
+
+// -------------------------
+// CARRITO
+// -------------------------
+
+function agregarAlCarrito(id, cantidad = 1) {
+    const producto = obtenerProducto(id);
+    if (!producto) return;
+
+    const item = carrito.find(p => p.id === id);
+    item ? item.cantidad += cantidad : carrito.push({ id, cantidad });
+
+    guardarCarrito();
+    actualizarContador();
+}
+
+function removerDelCarrito(id) {
+    carrito = carrito.filter(item => item.id !== id);
+    guardarCarrito();
+    actualizarContador();
+}
+
+// -------------------------
+// SUBTOTAL Y DESCUENTOS
+// -------------------------
+
+function subtotal() {
+    return carrito.reduce((acc, item) => {
+        const p = obtenerProducto(item.id);
+        return p ? acc + p.precio * item.cantidad : acc;
+    }, 0);
+}
+
+function aplicarDescuento(codigo) {
+    const sub = subtotal();
+    let total = sub;
+    let detalle = "Sin descuento aplicado";
+
+    if (codigo === "PROMO10" && sub >= 30000) {
+        total = sub * 0.9;
+        detalle = "Descuento PROMO10 (10%) aplicado";
+    }
+
+    if (codigo === "ENVIOGRATIS" && sub >= 25000) {
+        total = Math.max(0, sub - 3990);
+        detalle = "Envío gratis aplicado";
+    }
+
+    return { subtotal: sub, total, detalle };
+}
+
+// -------------------------
+// RESUMEN (LO QUE TE PIDEN)
+// -------------------------
+
+function resumen(codigo) {
+    const d = aplicarDescuento(codigo);
+
+    const items = carrito.map(item => {
+        const p = obtenerProducto(item.id);
+        return `${p.nombre} x${item.cantidad}`;
+    }).join(" | ");
+
+    return `
+Items: ${items}
+Subtotal: $${d.subtotal}
+${d.detalle}
+Total: $${d.total}
+`;
+}
+
+// -------------------------
+// EVENTOS (TUS BOTONES)
+// -------------------------
+
+// Botones AGREGAR
+document.querySelectorAll(".btn-agregar").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const nombre = btn.dataset.nombre;
         const producto = productos.find(p => p.nombre === nombre);
         if (producto) {
-            agregarAlCarrito(producto.id, 1);
-        } else {
-            alert(`Error interno: Producto '${nombre}' no encontrado en la base de datos.`)
+            agregarAlCarrito(producto.id);
+            console.log(resumen("PROMO10"));
         }
     });
 });
 
-// Lógica para botón de remover
-document.querySelectorAll(".btn-eliminar").forEach(boton => {
-    boton.addEventListener("click", () => {
-        const nombre = boton.dataset.nombre;
-
+// Botones ELIMINAR
+document.querySelectorAll(".btn-eliminar").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const nombre = btn.dataset.nombre;
         const producto = productos.find(p => p.nombre === nombre);
         if (producto) {
             removerDelCarrito(producto.id);
-        } else {
-            alert(`Error interno: Producto '${nombre}' no encontrado en la base de datos.`)
+            console.log(resumen("PROMO10"));
         }
     });
 });
 
-// Lógica para botón de vaciar carrito
+// Botón VACIAR
 const btnVaciar = document.getElementById("vaciarNav");
 if (btnVaciar) {
     btnVaciar.addEventListener("click", () => {
         carrito = [];
         guardarCarrito();
         actualizarContador();
-        alert("Carrito vaciado");
+        console.log("Carrito vaciado");
     });
+}
 
-// Posibilidad de vaciar carrito y que se actualice la consola
-    console.log("Carrito actualizado:", carrito);
-    console.log("Subtotal:", subtotal());
-    console.log("Con descuento PROMO10:", aplicarDescuento("PROMO10"));
-};
+// -------------------------
+// INIT
+// -------------------------
 
-// Actualizar contador al cargar la página
 actualizarContador();
-
-// Botón para ir arriba
-const botonIrArriba = document.getElementById("botonIrArriba");
-if (botonIrArriba) {
-    botonIrArriba.addEventListener("click", function () {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    });
-};
-
-// -------------------------
-// PRUEBA
-// -------------------------
-
-agregarAlCarrito(1, 2);
-agregarAlCarrito(3, 1);
-console.log(aplicarDescuento("PROMO10"));
+getProductos();
