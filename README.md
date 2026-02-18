@@ -27,3 +27,8 @@ El proyecto consiste en la creación de Front-end de una tienda e-commerce.
 
 - Cargo los productos desde un archivo JSON usando fetch y async/await.
 - Mantengo el estado del carrito con localStorage y reutilizo la misma lógica para agregar, eliminar y vaciar productos.
+
+### Actualización de contenido (18-02-2026)
+
+- Añado base de datos donde se ejecutan operaciones para simular procesos de compra de frontend mediante SQL.
+- Se utiliza pgAdmin 4.
