@@ -32,3 +32,4 @@ El proyecto consiste en la creación de Front-end de una tienda e-commerce.
 
 - Añado base de datos donde se ejecutan operaciones para simular procesos de compra de frontend mediante SQL.
 - Se utiliza pgAdmin 4.
+- Añado nuevo producto.
